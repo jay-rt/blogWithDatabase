@@ -4,7 +4,7 @@ const _ = require("lodash");
 const ejs = require("ejs");
 const Post = require("./posts");
 
-const mainHomeContent = new Post({
+const homeContent = new Post({
   landingPage: "home",
   title: "Home",
   content:
@@ -45,12 +45,12 @@ app.get("/", (req, res) => {
   (async () => {
     const home = await Post.find({ landingPage: "home" });
     if (home.length === 0) {
-      await mainHomeContent.save();
+      await homeContent.save();
       res.redirect("/");
     } else {
-      const posts = await Post.find({ landingPage: "homeAndPost" });
+      const posts = await Post.find({ landingPage: "homePlusIndividual" });
       res.render("home", {
-        homeContent: mainHomeContent,
+        homeContent: homeContent,
         postedContent: posts,
       });
     }
@@ -85,24 +85,29 @@ app.get("/compose", (req, res) => {
   res.render("compose");
 });
 
-app.get("/posts/:post", (req, res) => {
-  const requestedTitle = _.lowerCase(req.params.post);
-  posts.forEach((post) => {
-    const storedTitle = _.lowerCase(post.title);
-    if (requestedTitle === storedTitle) {
-      res.render("post", {
-        title: post.title,
-        content: post.content,
-      });
-    }
-  });
+app.get("/posts/:id", (req, res) => {
+  (async () => {
+    const id = req.params.id;
+    const post = await Post.findById(id);
+    res.render("post", { post: post });
+
+    // posts.forEach((post) => {
+    //   const storedTitle = _.lowerCase(post.title);
+    //   if (requestedTitle === storedTitle) {
+    //     res.render("post", {
+    //       title: post.title,
+    //       content: post.content,
+    //     });
+    //   }
+    // });
+  })();
 });
 
 //POST Request
 app.post("/compose", (req, res) => {
   (async () => {
     const post = new Post({
-      landingPage: "homeAndPost",
+      landingPage: "homePlusIndividual",
       title: _.capitalize(req.body.postTitle),
       content: req.body.postBody,
     });
