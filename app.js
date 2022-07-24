@@ -1,9 +1,11 @@
+//requiring necessary modules
 const express = require("express");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const ejs = require("ejs");
 const Post = require("./posts");
 
+//Default content for the blog
 const homeContent = new Post({
   landingPage: "home",
   title: "Home",
@@ -42,12 +44,16 @@ app.use(express.static("public"));
 
 //GET Request
 app.get("/", (req, res) => {
+  //Using IIFE to use async function
   (async () => {
+    //Searching for all post with landingPage of value home
     const home = await Post.find({ landingPage: "home" });
+    //If no post are available, save the default post and redirect to root route.
     if (home.length === 0) {
       await homeContent.save();
       res.redirect("/");
     } else {
+      //Searching for blog posts in case home has default post and rendering it in home page.
       const posts = await Post.find({ landingPage: "homePlusIndividual" });
       res.render("home", {
         homeContent: homeContent,
@@ -85,27 +91,20 @@ app.get("/compose", (req, res) => {
   res.render("compose");
 });
 
-app.get("/posts/:id", (req, res) => {
+//Using route parameters to extract the id being passed
+app.get("/posts/:postId", (req, res) => {
   (async () => {
-    const id = req.params.id;
-    const post = await Post.findById(id);
+    const requestedPostId = req.params.postId;
+    //Using the obtained id to find the post being passed
+    const post = await Post.findById(requestedPostId);
     res.render("post", { post: post });
-
-    // posts.forEach((post) => {
-    //   const storedTitle = _.lowerCase(post.title);
-    //   if (requestedTitle === storedTitle) {
-    //     res.render("post", {
-    //       title: post.title,
-    //       content: post.content,
-    //     });
-    //   }
-    // });
   })();
 });
 
 //POST Request
 app.post("/compose", (req, res) => {
   (async () => {
+    //Capturing the value from form and saving a new post
     const post = new Post({
       landingPage: "homePlusIndividual",
       title: _.capitalize(req.body.postTitle),
@@ -116,6 +115,7 @@ app.post("/compose", (req, res) => {
   })();
 });
 
+//Listening for connection at specific port
 app.listen(3000, () => {
   console.log("Server started on port 3000");
 });
