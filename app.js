@@ -43,48 +43,41 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 //GET Request
-app.get("/", (req, res) => {
-  //Using IIFE to use async function
-  (async () => {
-    //Searching for all post with landingPage of value home
-    const home = await Post.find({ landingPage: "home" });
-    //If no post are available, save the default post and redirect to root route.
-    if (home.length === 0) {
-      await homeContent.save();
-      res.redirect("/");
-    } else {
-      //Searching for blog posts in case home has default post and rendering it in home page.
-      const posts = await Post.find({ landingPage: "homePlusIndividual" });
-      res.render("home", {
-        homeContent: homeContent,
-        postedContent: posts,
-      });
-    }
-  })();
+app.get("/", async (req, res) => {
+  //Searching for all post with landingPage of value home
+  const home = await Post.find({ landingPage: "home" });
+  //If no post are available, save the default post and redirect to root route.
+  if (home.length === 0) {
+    await homeContent.save();
+    res.redirect("/");
+  } else {
+    //Searching for blog posts in case home has default post and rendering it in home page.
+    const posts = await Post.find({ landingPage: "homePlusIndividual" });
+    res.render("home", {
+      homeContent: homeContent,
+      postedContent: posts,
+    });
+  }
 });
 
-app.get("/about", (req, res) => {
-  (async () => {
-    const about = await Post.find({ landingPage: "about" });
-    if (about.length === 0) {
-      await aboutContent.save();
-      res.redirect("/about");
-    } else {
-      res.render("about", { aboutContent: aboutContent });
-    }
-  })();
+app.get("/about", async (req, res) => {
+  const about = await Post.find({ landingPage: "about" });
+  if (about.length === 0) {
+    await aboutContent.save();
+    res.redirect("/about");
+  } else {
+    res.render("about", { aboutContent: aboutContent });
+  }
 });
 
-app.get("/contact", (req, res) => {
-  (async () => {
-    const contact = await Post.find({ landingPage: "contact" });
-    if (contact.length === 0) {
-      await contactContent.save();
-      res.redirect("/contact");
-    } else {
-      res.render("contact", { contactContent: contactContent });
-    }
-  })();
+app.get("/contact", async (req, res) => {
+  const contact = await Post.find({ landingPage: "contact" });
+  if (contact.length === 0) {
+    await contactContent.save();
+    res.redirect("/contact");
+  } else {
+    res.render("contact", { contactContent: contactContent });
+  }
 });
 
 app.get("/compose", (req, res) => {
@@ -92,27 +85,23 @@ app.get("/compose", (req, res) => {
 });
 
 //Using route parameters to extract the id being passed
-app.get("/posts/:postId", (req, res) => {
-  (async () => {
-    const requestedPostId = req.params.postId;
-    //Using the obtained id to find the post being passed
-    const post = await Post.findById(requestedPostId);
-    res.render("post", { post: post });
-  })();
+app.get("/posts/:postId", async (req, res) => {
+  const requestedPostId = req.params.postId;
+  //Using the obtained id to find the post being passed
+  const post = await Post.findById(requestedPostId);
+  res.render("post", { post: post });
 });
 
 //POST Request
-app.post("/compose", (req, res) => {
-  (async () => {
-    //Capturing the value from form and saving a new post
-    const post = new Post({
-      landingPage: "homePlusIndividual",
-      title: _.capitalize(req.body.postTitle),
-      content: req.body.postBody,
-    });
-    await post.save();
-    res.redirect("/");
-  })();
+app.post("/compose", async (req, res) => {
+  //Capturing the value from form and saving a new post
+  const post = new Post({
+    landingPage: "homePlusIndividual",
+    title: _.capitalize(req.body.postTitle),
+    content: req.body.postBody,
+  });
+  await post.save();
+  res.redirect("/");
 });
 
 //Listening for connection at specific port
