@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const ejs = require("ejs");
-const Post = require("./posts");
+const Post = require("./models/posts");
 
 //Default content for the blog
 const homeContent = new Post({
