@@ -3,13 +3,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import HomePage from "../pages/HomePage";
-import Navbar from "./Navbar";
+import NavigationBar from "./NavigationBar";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <NavigationBar />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/about" element={<AboutPage />}></Route>
