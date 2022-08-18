@@ -30,7 +30,7 @@ const ComposePage = (props) => {
       <h1>Compose</h1>
       <form action="/compose" method="post" onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label" for="title">
+          <label className="form-label" htmlFor="title">
             Title
           </label>
           <input
@@ -42,7 +42,7 @@ const ComposePage = (props) => {
             value={blog.title}
           />
         </div>
-        <label className="form-label" for="content">
+        <label className="form-label" htmlFor="content">
           Post
         </label>
         <div className="mb-3">

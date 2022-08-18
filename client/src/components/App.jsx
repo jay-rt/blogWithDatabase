@@ -5,7 +5,7 @@ import ComposePage from "../pages/ComposePage";
 import ContactPage from "../pages/ContactPage";
 import HomePage from "../pages/HomePage";
 import Footer from "./Footer";
-import NavigationBar from "./NavigationBar";
+import NavBar from "./NavBar";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -19,7 +19,7 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <NavigationBar />
+        <NavBar />
         <div className="container">
           <Routes>
             <Route path="/" element={<HomePage blogs={blogs} />}></Route>
