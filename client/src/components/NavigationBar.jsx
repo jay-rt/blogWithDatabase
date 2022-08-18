@@ -11,7 +11,7 @@ const NavigationBar = () => {
       {/* Container component with bootstrap container class */}
       <Container>
         {/* Brand component for bootstrap brand class, with href element set to <a> tag*/}
-        <Navbar.Brand href="/">DAILY JOURNAL</Navbar.Brand>
+        <Navbar.Brand href="#">DAILY JOURNAL</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {/* Using as property to set the element to ul, div by default*/}

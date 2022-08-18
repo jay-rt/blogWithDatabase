@@ -1,33 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 
-const ComposePage = () => {
+const ComposePage = (props) => {
+  const [blog, setBlog] = useState({
+    title: "",
+    content: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setBlog((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleSubmit = (event) => {
+    props.onAdd(blog);
+    event.preventDefault();
+    setBlog({
+      title: "",
+      content: "",
+    });
+  };
+
   return (
     <>
       <h1>Compose</h1>
-      <form action="/compose" method="post">
-        <div class="mb-3">
-          <label class="form-label" for="postTitle">
+      <form action="/compose" method="post" onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label className="form-label" for="title">
             Title
           </label>
           <input
-            class="form-control"
+            onChange={handleChange}
+            className="form-control"
             type="text"
-            name="postTitle"
-            id="postTitle"
+            name="title"
+            id="title"
+            value={blog.title}
           />
         </div>
-        <label class="form-label" for="postBody">
+        <label className="form-label" for="content">
           Post
         </label>
-        <div class="mb-3">
+        <div className="mb-3">
           <textarea
-            class="form-control"
-            name="postBody"
-            id="postBody"
+            onChange={handleChange}
+            className="form-control"
+            name="content"
+            id="content"
             rows="3"
+            value={blog.content}
           ></textarea>
         </div>
-        <button class="btn btn-primary" type="submit">
+        <button className="btn btn-primary" type="submit">
           Publish
         </button>
       </form>

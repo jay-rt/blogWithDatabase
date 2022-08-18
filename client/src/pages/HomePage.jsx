@@ -1,6 +1,7 @@
 import React from "react";
+import Blog from "../components/Blog";
 
-const HomePage = () => {
+const HomePage = (props) => {
   return (
     <>
       <h1>Home</h1>
@@ -16,6 +17,20 @@ const HomePage = () => {
         lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a
         iaculis at erat pellentesque adipiscing.
       </p>
+
+      {props.blogs.map((blog, index) => {
+        return (
+          <Blog
+            key={index}
+            title={blog.title}
+            content={
+              blog.content.length > 100
+                ? blog.content.substring(0, 100) + "..."
+                : blog.content
+            }
+          />
+        );
+      })}
     </>
   );
 };
