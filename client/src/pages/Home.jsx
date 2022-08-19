@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Blog from "../components/Blog";
+import axios from "axios";
 
-const HomePage = (props) => {
+const Home = () => {
+  const [blogs, setBlogs] = useState([]);
+  const getPost = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/posts");
+      console.log("Data successfully recieved");
+      setBlogs([...response.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPost();
+  }, []);
   return (
     <>
       <h1>Home</h1>
@@ -18,10 +33,11 @@ const HomePage = (props) => {
         iaculis at erat pellentesque adipiscing.
       </p>
 
-      {props.blogs.map((blog, index) => {
+      {blogs.map((blog) => {
         return (
           <Blog
-            key={index}
+            key={blog._id}
+            id={blog._id}
             title={blog.title}
             content={
               blog.content.length > 100
@@ -35,4 +51,4 @@ const HomePage = (props) => {
   );
 };
 
-export default HomePage;
+export default Home;

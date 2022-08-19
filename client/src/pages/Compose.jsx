@@ -1,6 +1,7 @@
+import axios from "axios";
 import React, { useState } from "react";
 
-const ComposePage = (props) => {
+const Compose = () => {
   const [blog, setBlog] = useState({
     title: "",
     content: "",
@@ -16,9 +17,14 @@ const ComposePage = (props) => {
     });
   };
 
-  const handleSubmit = (event) => {
-    props.onAdd(blog);
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:3000/posts", blog);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
     setBlog({
       title: "",
       content: "",
@@ -28,7 +34,7 @@ const ComposePage = (props) => {
   return (
     <>
       <h1>Compose</h1>
-      <form action="/compose" method="post" onSubmit={handleSubmit}>
+      <form method="post" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label" htmlFor="title">
             Title
@@ -63,4 +69,4 @@ const ComposePage = (props) => {
   );
 };
 
-export default ComposePage;
+export default Compose;

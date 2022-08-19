@@ -1,11 +1,12 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 //Defining a Schema
 const postSchema = new mongoose.Schema({
-  landingPage: String,
   title: String,
   content: String,
 });
 
 //Exporting the model
-module.exports = mongoose.model("Post", postSchema);
+const Post = mongoose.model("Post", postSchema);
+
+export default Post;

@@ -1,34 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AboutPage from "../pages/AboutPage";
-import ComposePage from "../pages/ComposePage";
-import ContactPage from "../pages/ContactPage";
-import HomePage from "../pages/HomePage";
+import About from "../pages/About";
+import Compose from "../pages/Compose";
+import Contact from "../pages/Contact";
+import Home from "../pages/Home";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
-
-  const handleAdd = (blog) => {
-    setBlogs((prevValue) => {
-      return [...prevValue, blog];
-    });
-  };
-
   return (
     <>
       <BrowserRouter>
         <NavBar />
         <div className="container">
           <Routes>
-            <Route path="/" element={<HomePage blogs={blogs} />}></Route>
-            <Route path="/about" element={<AboutPage />}></Route>
-            <Route path="/contact" element={<ContactPage />}></Route>
-            <Route
-              path="/compose"
-              element={<ComposePage onAdd={handleAdd} />}
-            ></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/contact" element={<Contact />}></Route>
+            <Route path="/compose" element={<Compose />}></Route>
           </Routes>
         </div>
         <Footer />
