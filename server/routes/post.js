@@ -39,10 +39,18 @@ router
   .put(async (req, res) => {
     try {
       await Post.replaceOne(
-        { _id: id },
+        { _id: req.params.id },
         { title: req.body.title, content: req.body.content }
       );
       res.json("Post updated");
+    } catch (error) {
+      console.log(error);
+    }
+  })
+  .delete(async (req, res) => {
+    try {
+      await Post.deleteOne({ _id: req.params.id });
+      res.json("Successfully deleted the post.");
     } catch (error) {
       console.log(error);
     }

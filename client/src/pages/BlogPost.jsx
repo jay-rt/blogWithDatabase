@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import { Link, useParams } from "react-router-dom";
 import Blog from "../components/Blog";
 
 const BlogPost = () => {
@@ -19,16 +20,21 @@ const BlogPost = () => {
     getPost(id);
   }, [id]);
 
+  const handleClick = async () => {
+    const res = await axios.delete(`http://localhost:3000/posts/${id}`);
+    console.log(res);
+  };
+
   return (
     <>
       <Blog title={blog.title} content={blog.content} />
       <div className="d-grid gap-2">
-        <button type="button" className="btn btn-primary">
+        <Link to={`/edit/${blog._id}`} className="btn btn-primary">
           EDIT
-        </button>
-        <button type="button" className="btn btn-danger">
+        </Link>
+        <Button onClick={handleClick} variant="danger">
           DELETE
-        </button>
+        </Button>
       </div>
     </>
   );

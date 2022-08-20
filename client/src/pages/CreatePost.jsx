@@ -36,7 +36,6 @@ const CreatePost = () => {
   return (
     <>
       <h1>Create a new post</h1>
-
       <Form onSubmit={handleSubmit}>
         {/* controlId sets id for Form Control and htmlFor for Form Label*/}
         <Form.Group className="mb-3" controlId="title">
@@ -46,6 +45,7 @@ const CreatePost = () => {
             type="text"
             name="title"
             value={blog.title}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group className="mb-3" controlId="content">
@@ -56,6 +56,7 @@ const CreatePost = () => {
             name="content"
             rows={3}
             value={blog.content}
+            required
           ></Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">

@@ -7,6 +7,7 @@ import Contact from "../pages/Contact";
 import Home from "../pages/Home";
 import Footer from "./Footer";
 import NavigationBar from "./NavigationBar";
+import EditPost from "../pages/EditPost";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="/create" element={<CreatePost />}></Route>
             <Route path="/posts/:id" element={<BlogPost />}></Route>
+            <Route path="/edit/:id" element={<EditPost />}></Route>
           </Routes>
         </div>
         <Footer />
