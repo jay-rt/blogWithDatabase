@@ -33,3 +33,13 @@
 	font-size: 12px;
     color: #fff;
 }
+
+.post {
+    text-decoration: none;
+    color: black
+}
+
+.post:hover {
+    color: #1a7562;
+    opacity: .7;
+}
