@@ -36,7 +36,7 @@
 
 .post {
     text-decoration: none;
-    color: black
+    color: #000;
 }
 
 .post:hover {

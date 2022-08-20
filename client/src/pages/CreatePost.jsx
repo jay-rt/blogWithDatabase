@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
-const Compose = () => {
+const CreatePost = () => {
   const [blog, setBlog] = useState({
     title: "",
     content: "",
@@ -33,40 +35,35 @@ const Compose = () => {
 
   return (
     <>
-      <h1>Compose</h1>
-      <form method="post" onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label" htmlFor="title">
-            Title
-          </label>
-          <input
+      <h1>Create a new post</h1>
+
+      <Form onSubmit={handleSubmit}>
+        {/* controlId sets id for Form Control and htmlFor for Form Label*/}
+        <Form.Group className="mb-3" controlId="title">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
             onChange={handleChange}
-            className="form-control"
             type="text"
             name="title"
-            id="title"
             value={blog.title}
-          />
-        </div>
-        <label className="form-label" htmlFor="content">
-          Post
-        </label>
-        <div className="mb-3">
-          <textarea
+          ></Form.Control>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="content">
+          <Form.Label>Post</Form.Label>
+          <Form.Control
+            as="textarea"
             onChange={handleChange}
-            className="form-control"
             name="content"
-            id="content"
-            rows="3"
+            rows={3}
             value={blog.content}
-          ></textarea>
-        </div>
-        <button className="btn btn-primary" type="submit">
-          Publish
-        </button>
-      </form>
+          ></Form.Control>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          CREATE
+        </Button>
+      </Form>
     </>
   );
 };
 
-export default Compose;
+export default CreatePost;

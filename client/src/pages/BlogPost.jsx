@@ -22,6 +22,14 @@ const BlogPost = () => {
   return (
     <>
       <Blog title={blog.title} content={blog.content} />
+      <div className="d-grid gap-2">
+        <button type="button" className="btn btn-primary">
+          EDIT
+        </button>
+        <button type="button" className="btn btn-danger">
+          DELETE
+        </button>
+      </div>
     </>
   );
 };
