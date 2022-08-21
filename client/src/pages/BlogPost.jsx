@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Blog from "../components/Blog";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const BlogPost = () => {
   const { id } = useParams();
@@ -21,9 +23,22 @@ const BlogPost = () => {
     getPost(id);
   }, [id]);
 
+  useEffect(() => {
+    const result = localStorage.getItem("res");
+    if (result) {
+      toast.success(result, {
+        position: "bottom-center",
+        theme: "dark",
+        autoClose: 3000,
+      });
+      localStorage.clear();
+    }
+  }, []);
+
   const handleClick = async () => {
     const res = await axios.delete(`http://localhost:3000/posts/${id}`);
     console.log(res.data);
+    localStorage.setItem("res", res.data);
     navigate("/");
   };
 
@@ -38,6 +53,7 @@ const BlogPost = () => {
           DELETE
         </Button>
       </div>
+      <ToastContainer />
     </>
   );
 };

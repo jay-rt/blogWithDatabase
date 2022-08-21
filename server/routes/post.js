@@ -20,7 +20,7 @@ router
         content: req.body.content,
       });
       await post.save();
-      res.json("Post successfully saved");
+      res.json("New post successfully saved");
     } catch (error) {
       res.send(error);
     }
@@ -42,7 +42,7 @@ router
         { _id: req.params.id },
         { title: req.body.title, content: req.body.content }
       );
-      res.json("Post updated");
+      res.json("Current post successfully updated");
     } catch (error) {
       console.log(error);
     }

@@ -27,6 +27,8 @@ const CreatePost = () => {
     try {
       const res = await axios.post("http://localhost:3000/posts", blog);
       console.log(res.data);
+      //Saving the server response to localStorage for displaying toast message later
+      localStorage.setItem("res", res.data);
     } catch (error) {
       console.log(error);
     }

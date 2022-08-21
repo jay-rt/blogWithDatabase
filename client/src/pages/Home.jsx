@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Blog from "../components/Blog";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -17,6 +19,19 @@ const Home = () => {
 
   useEffect(() => {
     getPost();
+  }, []);
+
+  //Checking when loading initially if the local storage has data and displaying the toast message
+  useEffect(() => {
+    const result = localStorage.getItem("res");
+    if (result) {
+      toast.success(result, {
+        position: "bottom-center",
+        theme: "dark",
+        autoClose: 3000,
+      });
+      localStorage.clear();
+    }
   }, []);
   return (
     <>
@@ -49,6 +64,7 @@ const Home = () => {
           </Link>
         );
       })}
+      <ToastContainer />
     </>
   );
 };
