@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
 
 const EditPost = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [blog, setBlog] = useState({
     title: "",
     content: "",
@@ -42,6 +43,7 @@ const EditPost = () => {
       title: "",
       content: "",
     });
+    navigate(`/posts/${id}`);
   };
 
   return (

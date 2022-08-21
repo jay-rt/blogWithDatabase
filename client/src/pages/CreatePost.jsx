@@ -2,12 +2,15 @@ import axios from "axios";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [blog, setBlog] = useState({
     title: "",
     content: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -31,6 +34,7 @@ const CreatePost = () => {
       title: "",
       content: "",
     });
+    navigate("/");
   };
 
   return (

@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Blog from "../components/Blog";
 
 const BlogPost = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [blog, setBlog] = useState("");
   const getPost = async (_id) => {
     try {
@@ -22,7 +23,8 @@ const BlogPost = () => {
 
   const handleClick = async () => {
     const res = await axios.delete(`http://localhost:3000/posts/${id}`);
-    console.log(res);
+    console.log(res.data);
+    navigate("/");
   };
 
   return (
