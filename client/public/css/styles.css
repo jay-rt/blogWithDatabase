@@ -43,3 +43,23 @@
     color: #1a7562;
     opacity: .7;
 }
+
+.error-img {
+    display: block;
+    margin: 0 auto;
+    height: 74vh;
+    width: auto;
+}
+
+.error-img-credit {
+    text-align: center;
+}
+
+.error-img-credit a {
+    color: #1a7562;
+    text-decoration: none;
+}
+
+.error-img-credit a:hover {
+    text-decoration: underline;
+}
