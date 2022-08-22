@@ -4,11 +4,11 @@ const NotFound = () => {
   return (
     <>
       <img
-        className="error-img"
+        className="error-img img-fluid"
         src="/images/error.svg"
         alt="404 Page Not Found Error"
       />
-      <p class="error-img-credit">
+      <p className="error-img-credit">
         Image Credit:{" "}
         <a href="https://storyset.com" target="_blank" rel="noreferrer">
           Storyset
