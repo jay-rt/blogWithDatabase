@@ -9,20 +9,34 @@ import "react-toastify/dist/ReactToastify.min.css";
 const BlogPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [blog, setBlog] = useState("");
-  const getPost = async (_id) => {
-    try {
-      const res = await axios.get(`http://localhost:3000/posts/${_id}`);
-      console.log(res.data);
-      setBlog(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [blog, setBlog] = useState({
+    title: "",
+    content: "",
+  });
+
   useEffect(() => {
-    getPost(id);
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const getPost = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/posts/${id}`, {
+          signal,
+        });
+        console.log(res.data);
+        setBlog(res.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getPost();
+
+    return () => {
+      //cancels the request before the components unmount
+      controller.abort();
+    };
   }, [id]);
 
+  //Checking when loading initially if the local storage has data and displaying the toast message
   useEffect(() => {
     const result = localStorage.getItem("res");
     if (result) {

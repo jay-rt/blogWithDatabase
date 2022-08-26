@@ -7,18 +7,27 @@ import "react-toastify/dist/ReactToastify.min.css";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
-  const getPost = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/posts");
-      console.log("Data successfully recieved");
-      setBlogs([...response.data]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const getPost = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/posts", {
+          signal,
+        });
+        console.log("Data successfully recieved");
+        setBlogs([...response.data]);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
     getPost();
+
+    return () => {
+      //cancels the request before the components unmount
+      controller.abort();
+    };
   }, []);
 
   //Checking when loading initially if the local storage has data and displaying the toast message
