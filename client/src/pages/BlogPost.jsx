@@ -19,7 +19,7 @@ const BlogPost = () => {
     const signal = controller.signal;
     const getPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/posts/${id}`, {
+        const res = await axios.get(`/posts/${id}`, {
           signal,
         });
         console.log(res.data);
@@ -50,7 +50,7 @@ const BlogPost = () => {
   }, []);
 
   const handleClick = async () => {
-    const res = await axios.delete(`http://localhost:3000/posts/${id}`);
+    const res = await axios.delete(`/posts/${id}`);
     console.log(res.data);
     localStorage.setItem("res", res.data);
     navigate("/");

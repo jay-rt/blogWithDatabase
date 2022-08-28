@@ -17,7 +17,7 @@ const EditPost = () => {
     const signal = controller.signal;
     const getPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/posts/${id}`, {
+        const res = await axios.get(`/posts/${id}`, {
           signal,
         });
         console.log(res.data);
@@ -44,7 +44,7 @@ const EditPost = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:3000/posts/${id}`, blog);
+      const res = await axios.put(`/posts/${id}`, blog);
       console.log(res.data);
       localStorage.setItem("res", res.data);
     } catch (error) {

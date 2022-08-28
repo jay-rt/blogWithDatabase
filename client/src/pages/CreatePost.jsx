@@ -25,7 +25,7 @@ const CreatePost = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/posts", blog);
+      const res = await axios.post("/posts", blog);
       console.log(res.data);
       //Saving the server response to localStorage for displaying toast message later
       localStorage.setItem("res", res.data);

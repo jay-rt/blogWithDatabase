@@ -13,7 +13,7 @@ const Home = () => {
     const signal = controller.signal;
     const getPost = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/posts", {
+        const response = await axios.get("/posts", {
           signal,
         });
         console.log("Data successfully recieved");

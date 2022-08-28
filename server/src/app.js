@@ -1,6 +1,5 @@
 //importing necessary modules
 import express from "express";
-import cors from "cors";
 import mongoose from "mongoose";
 import postRouter from "../routes/post.js";
 import { dirname, join } from "path";
@@ -17,13 +16,6 @@ const app = express();
 
 //serving static files
 app.use(express.static(join(__dirname, "build")));
-
-// configuring cors
-const corsOption = {
-  origin: "http://localhost:5000",
-};
-
-app.use(cors(corsOption));
 
 app.use(express.json());
 app.use("/posts", postRouter);
